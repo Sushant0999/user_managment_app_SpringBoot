@@ -1,64 +1,50 @@
 <!DOCTYPE html>
 <html th="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+      th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Forget Password</title>
+    <meta charset="ISO-8859-1">
+    <title>Forget Password</title>
 
 </head>
 <body>
-	<section>
-		<div class="container pt-5">
-			<div class="column">
-				<div class="col-md-6 offset-md-3">
-					<div class="card">
-						<div class="card-header text-center fs-4">Forget Password
-							Page</div>
+<section>
+    <div class="container pt-5">
+        <div class="column">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header text-center fs-4">Forget Password
+                        Page
+                    </div>
 
-						<th:block th:if="${session.error}">
-							<div style="margin: 2px 50px 2px 50px;">
-								<p class="text-center fs-4 btn-danger">[[${session.error}]]</p>
-								<th:block th:text="${@sessionHelper.removeMessageError()}"></th:block>
-							</div>
-						</th:block>
-						<!-- 						<div class="card-body">
-							<form action="resetPassword" method="post">
-								<label>Enter Email</label>
-								<div class="mb-3">
-									<input type="email" name="email" class="form-contorl">
-								</div>
-								<div>
-									<button class="btn btn-primary col-md-12">Submit</button>
-								</div>
-							</form>
-							<div class="text-center mt-2">
-								<a th:href="@{/signin}" class="text-decoration:none fs-S">Login
-									Page</a>
-							</div>
-						</div>
-						
- -->
-						<form action="resetPassword" method="post" style="padding: 20px;">
-							<div class="mb-3 pt-3">
-								<label for="exampleInputEmail1" class="form-label">Email
-									address</label> <input type="email" name="username"
-									class="form-control" id="exampleInputEmail1"
-									aria-describedby="emailHelp">
-								<div id="emailHelp" class="form-text">We'll never share
-									your email with anyone else.</div>
-							</div>
+                    <th:block th:if="${session.error}">
+                        <div style="margin: 2px 50px 2px 50px;">
+                            <p class="text-center fs-4 btn-danger">[[${session.error}]]</p>
+                            <th:block th:text="${@sessionHelper.removeMessageError()}"></th:block>
+                        </div>
+                    </th:block>
 
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<div class="text-center mt-2">
-								<a th:href="@{/signin}" class="text-decoration:none fs-S">Login
-									Page</a>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                    <form action="resetPassword" method="post" style="padding: 20px;">
+                        <div class="mb-3 pt-3">
+                            <label for="exampleInputEmail1" class="form-label">Email
+                                address</label> <input type="email" name="email"
+                                                       class="form-control" id="exampleInputEmail1"
+                                                       aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share
+                                your email with anyone else.
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="text-center mt-2">
+                            <a th:href="@{/signin}" class="text-decoration:none fs-S">Login
+                                Page</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 </body>
 </html>

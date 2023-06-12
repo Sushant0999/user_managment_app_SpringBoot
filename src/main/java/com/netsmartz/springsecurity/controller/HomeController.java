@@ -40,6 +40,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String index(HttpSession session) throws IOException {
+		System.out.println("CALLED");
 		JsonNode root = null;
 		try {
 			URL url = new URL("https://api.api-ninjas.com/v1/quotes?category=life");
@@ -99,9 +100,10 @@ public class HomeController {
 	}
 
 	@PostMapping("/resetPassword")
-	public String resetPassword(HttpServletRequest request, Model model, Email em, HttpSession httpSession) {
+	public String resetPassword(HttpServletRequest request, Email em, HttpSession httpSession) {
 		String email = request.getParameter("email");
-		boolean checkMail = userService.checkEmail(email + " exist : " + email);
+		System.out.println("THIS IS EMAIL : "+email);
+		boolean checkMail = userService.checkEmail(email);
 		if (!checkMail) {
 			String error = "USER NOT FOUND";
 			httpSession.setAttribute("error", error);

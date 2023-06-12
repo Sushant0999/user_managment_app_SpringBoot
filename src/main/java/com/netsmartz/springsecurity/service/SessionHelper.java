@@ -18,6 +18,16 @@ public class SessionHelper {
 			// TODO: handle exception
 		}
 	}
+
+	public void removeMessageError() {
+		try {
+			HttpSession session = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest()
+					.getSession();
+			session.removeAttribute("msg");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 	
 	public void removeMessageAuthor() {
 		try {
