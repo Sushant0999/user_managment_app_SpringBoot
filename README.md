@@ -12,4 +12,19 @@ An User Managment App in Spring Boot
   </ul>
 <hr>
   <h3>HOME PAGE</h3>
-  ![](/image/1.png)
+  <img src="image/1.png">
+  
+  <h3>SIGN IN</h3>
+  <img src="image/6.png">
+  
+  <h3>FORGET</h3>
+  <img src="image/5.png">
+  
+  <h3>REGISTER</h3>
+  <img src="image/3.png">
+  <img src="image/4.png">
+  
+  <h3>USER VALIDATION</h3>
+   <img src="image/2.png">
+  
+   
