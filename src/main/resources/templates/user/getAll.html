@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html th:lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<title>Get All</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<h1 align="center" style="padding-top: 20px;">HOME PAGE</h1>
+			<div class="container pb-4">
+				Rows Size : <select th:name="selectedPageSize"
+					onchange="this.form.submit()">
+					<option value="10" th:selected="${selectedPageSize == 10}">10</option>
+					<option value="20" th:selected="${selectedPageSize == 20}">20</option>
+					<option value="30" th:selected="${selectedPageSize == 30}">30</option>
+				</select>
+			</div>
+			<div class="container">
+
+				<table class="table table-hover table-success">
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Full Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Qualification</th>
+							<th scope="col">Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="dto : ${page.content}">
+							<td th:text="${dto.id}" />
+							<td th:text="${dto.fullname}" />
+							<td th:text="${dto.email}" />
+							<td th:text="${dto.qualification}" />
+							<td th:text="${dto.address}" />
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!--   -->
+
+			<div>
+
+				<ul class="conatiner pt-2 pb-2"
+					style="display: flex; flex-direction: row; list-style-type: none; padding: 2px 2px 2px 15px; margin: 0;">
+					<li class="page-item" style="padding-right: 20px;"
+						th:class="${page.number == 0 ? 'disabled' : ''}"><a
+						th:if="${page.number != 0}" th:href="@{/user/getAll(page=0)}">First</a>
+						<span th:if="${page.number == 0}">First</span></li>
+					<li class="page-item" style="padding-right: 20px;"
+						th:class="${page.number == 0 ? 'disabled' : ''}"><a
+						th:if="${page.number != 0}"
+						th:href="@{/user/getAll(page=${page.number - 1})}">Previous</a> <span
+						th:if="${page.number == 0}">Previous</span></li>
+					<li class="page-item" style="padding-right: 20px;"
+						th:class="${page.number >= (page.totalPages - 1) ? 'disabled' : ''}">
+						<a th:if="${page.number < (page.totalPages - 1)}"
+						th:href="@{/user/getAll(page=${page.number + 1})}">Next</a> <span
+						th:if="${page.number >= (page.totalPages - 1)}">Next</span>
+					</li>
+					<li class="page-item" style="padding-right: 20px;"
+						th:class="${page.number >= (page.totalPages - 1) ? 'disabled' : ''}">
+						<a th:if="${page.number < (page.totalPages - 1)}"
+						th:href="@{/user/getAll(page=${page.totalPages - 1})}">Last</a> <span
+						th:if="${page.number >= (page.totalPages - 1)}">Last</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="container pt-4 ms- 3">
+			<button class="btn btn-secondary" style="background-color: green;">
+				<a href="/logout">
+					<h3 style="color: white;">Logout</h3>
+				</a>
+			</button>
+		</div>
+	</section>
+
+</body>
+</html>
