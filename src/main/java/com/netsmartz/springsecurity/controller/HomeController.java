@@ -79,7 +79,6 @@ public class HomeController {
 	@PostMapping("/createUser")
 //	 use @RequestBody to insert data via postman
 	public String createUser(@ModelAttribute UserDetails user, HttpSession session) {
-		System.out.println(user);
 		boolean f = userService.checkEmail(user.getEmail());
 		System.out.println(f);
 		if (f) {
