@@ -15,15 +15,20 @@ public class UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Integer id;
 	@NonNull
 	private String fullname;
 	@NonNull
 	private String email;
+	@NonNull
 	private String address;
+	@NonNull
 	private String qualification;
+	@NonNull
 	private String password;
+	@NonNull
 	private String role;
+	@NonNull
 	private String resetPasswordToken;
 
 	public UserDetails() {
@@ -31,7 +36,7 @@ public class UserDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserDetails(int id, String fullname, String email, String address, String qualification, String password) {
+	public UserDetails(Integer id, String fullname, String email, String address, String qualification, String password) {
 		super();
 		this.id = id;
 		this.fullname = fullname;
@@ -41,11 +46,11 @@ public class UserDetails {
 		this.password = password;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -109,6 +114,10 @@ public class UserDetails {
 	public String toString() {
 		return "UserDetails [id=" + id + ", fullname=" + fullname + ", email=" + email + ", address=" + address
 				+ ", qualification=" + qualification + ", password=" + password + "]";
+	}
+
+	public static boolean isNonEmptyAndNonBlank(String value) {
+		return value != null && !value.trim().isEmpty();
 	}
 
 }
