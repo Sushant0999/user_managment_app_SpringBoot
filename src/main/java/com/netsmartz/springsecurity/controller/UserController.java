@@ -1,11 +1,16 @@
 package com.netsmartz.springsecurity.controller;
 
+import java.io.ByteArrayInputStream;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +82,13 @@ public class UserController {
 		String email = p.getName();
 		UserDetails user = repository.findByEmail(email);
 		m.addAttribute("user", user);
+	}
+
+	@GetMapping(value = "/pdf", produces = "application/pdf")
+	public ResponseEntity<InputStreamResource> createPdf(){
+		ByteArrayInputStream pdf = userService.createPdf();
+		HttpHeaders httpHeaders = new HttpHeaders();httpHeaders.add("Content-Disposition", "initial;file=StudentName.pdf");
+		return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
 	}
 
 }

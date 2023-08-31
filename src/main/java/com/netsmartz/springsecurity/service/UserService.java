@@ -1,5 +1,6 @@
 package com.netsmartz.springsecurity.service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -24,5 +25,7 @@ public interface UserService {
 	public UserDetails getResetPasswordToken(String token);
 	
 	public void updatePassword(UserDetails user, String newPassword);
+
+	public ByteArrayInputStream createPdf();
 
 }

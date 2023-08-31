@@ -25,6 +25,7 @@ public class EmailService {
 		System.out.println("CALLED");
 		
 		helper.setFrom("sushantr3999@gmail.com");
+		helper.setPriority(10);
 		helper.setTo(em.getTo());
 		helper.setSubject(em.getSubject());
 		helper.setText(em.getMessage());
