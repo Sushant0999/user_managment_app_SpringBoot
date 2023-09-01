@@ -13,10 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.netsmartz.springsecurity.model.UserDetails;
 import com.netsmartz.springsecurity.repository.UserRepository;
@@ -84,10 +81,12 @@ public class UserController {
 		m.addAttribute("user", user);
 	}
 
-	@GetMapping(value = "/pdf", produces = "application/pdf")
-	public ResponseEntity<InputStreamResource> createPdf(){
-		ByteArrayInputStream pdf = userService.createPdf();
-		HttpHeaders httpHeaders = new HttpHeaders();httpHeaders.add("Content-Disposition", "initial;file=StudentName.pdf");
+	@GetMapping(value = "/pdf/{email}", produces = "application/pdf")
+	public ResponseEntity<InputStreamResource> createPdf(@PathVariable String email){
+		ByteArrayInputStream pdf = userService.createPdf(email);
+		String filename = "Student.pdf";
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add("Content-Disposition", "attachment; filename=" + filename);
 		return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.APPLICATION_PDF).body(new InputStreamResource(pdf));
 	}
 

@@ -26,6 +26,6 @@ public interface UserService {
 	
 	public void updatePassword(UserDetails user, String newPassword);
 
-	public ByteArrayInputStream createPdf();
+	public ByteArrayInputStream createPdf(String email);
 
 }

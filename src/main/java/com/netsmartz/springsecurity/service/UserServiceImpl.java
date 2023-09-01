@@ -2,10 +2,12 @@ package com.netsmartz.springsecurity.service;
 
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
+import com.netsmartz.springsecurity.utils.MyLogger;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import com.lowagie.text.Document;
@@ -74,88 +76,37 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder pEncoder = new BCryptPasswordEncoder();
         String encoded = pEncoder.encode(newPassword);
         user.setPassword(encoded);
-
         user.setResetPasswordToken(null);
         userRepo.save(user);
     }
 
-    public ByteArrayInputStream createPdf() {
-//		logger.info("Create Pdf Started");
+    public ByteArrayInputStream createPdf(String email) {
+        MyLogger.info("Create Pdf Started");
 
-        String title = "Welcome";
-        List<UserDetails> list = getAllUser();
-        String content = String.valueOf(list);
-
+        String title = "Student Info";
+        UserDetails userDetails = userRepo.findByEmail(email);
+        String[] arr = {"ID : " + String.valueOf(userDetails.getId()), "Name : " + String.valueOf(userDetails.getEmail()), "Name : " + String.valueOf(userDetails.getFullname()), "Role : " + String.valueOf(userDetails.getRole()), "Address : " + String.valueOf(userDetails.getAddress())};
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
             Document document = new Document();
-
-            float width = document.getPageSize().getWidth();
-            float height = document.getPageSize().getHeight();
-
             PdfWriter.getInstance(document, byteArrayOutputStream);
 
-            float pos = height / 2;
-            PdfPTable table = null;
-            PdfPCell cell = null;
-
             document.open();
-
-            float[] columnDefinitionSize = {33.33F, 33.33F, 33.33F};
-
-            table = new PdfPTable(columnDefinitionSize);
-            table.getDefaultCell().setBorder(0);
-            table.setHorizontalAlignment(0);
-            table.setTotalWidth(width - 72);
-            table.setLockedWidth(true);
-
-            table = new PdfPTable(columnDefinitionSize);
-            table.getDefaultCell().setBorder(0);
-            table.setHorizontalAlignment(0);
-            table.setTotalWidth(width - 72);
-            table.setLockedWidth(true);
-
-            cell = new PdfPCell(new Phrase("Table added with document.add()"));
-            cell.setColspan(columnDefinitionSize.length);
-            table.addCell(cell);
-            cell.addElement(new Phrase("Hello1"));
-            cell.addElement(new Phrase("Hello2"));
-            cell.addElement(new Phrase("Hello3"));
-            cell.addElement(new Phrase("Hello4"));
-            cell.addElement(new Phrase("Hello5"));
 
             Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 25);
             Paragraph titleParagraph = new Paragraph(title, titleFont);
             titleParagraph.setAlignment(Element.ALIGN_CENTER);
             document.add(titleParagraph);
 
-            System.out.println(table);
-
-            //TESTCODE
-
-//            float margin = 50;
-//            float yStart = document   getMediaBox().getHeight() - margin;
-//            float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
-//            float yPosition = yStart;
-//            int rows = 1;
-//            int cols = 5;
-//            float rowHeight = 20;
-//            float tableHeight = rowHeight * rows;
-//            float tableYBottom = yStart - tableHeight;
-
-
-            //TESTCODE
-
-
-            Font paraFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
-            Paragraph paragraph = new Paragraph(content, paraFont);
+            Font paraFont = FontFactory.getFont(FontFactory.HELVETICA, 15);
+            for (String content : arr) {
+                Paragraph paragraph = new Paragraph(content, paraFont);
 //        paragraph.add(new Chunk("SOme thibk"));
-            paragraph.setAlignment(Element.ALIGN_LEFT);
-            document.add(paragraph);
-
-            document.add(table);
+                paragraph.setAlignment(Element.ALIGN_LEFT);
+                document.add(paragraph);
+            }
 
 
             document.close();

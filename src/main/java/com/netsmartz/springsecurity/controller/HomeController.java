@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
+import com.netsmartz.springsecurity.utils.MyLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,7 @@ public class HomeController {
                 quote.setAuthor(root.get(0).get("author").toString());
                 quote.setQuote(root.get(0).get("quote").toString());
                 quote.setCategory(root.get(0).get("category").toString());
+                MyLogger.info("QUOTED OBJECT CREATED");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,11 +68,13 @@ public class HomeController {
 
     @GetMapping("/signin")
     public String login() {
+        MyLogger.info("LOGIN");
         return "login";
     }
 
     @GetMapping("/register")
     public String register() {
+        MyLogger.info("LOGIN");
         return "register";
     }
 
@@ -89,22 +93,25 @@ public class HomeController {
             if (checkNull) {
                 userService.createUser(user);
                 session.setAttribute("msg", "REGISTERED SUCCESSFULLY");
+                MyLogger.info("USER REGISTERED : " + user.getEmail());
             }
             if (!checkNull) {
                 session.setAttribute("msg", "EMPTY VALUE NOT ACCEPTED");
-            } else
-                session.setAttribute("msg", "REGISTERED UNSUCCESSFULLY SOMETHING GOES WRONG");
+                MyLogger.info("USER SEND NULL VALUE : " + user.getEmail());
+            }
         }
         return "redirect:/register";
     }
 
     @GetMapping("/forget")
     public String forgetPassword() {
+        MyLogger.info("FORGET PASSWORD");
         return "forget";
     }
 
     @PostMapping("/resetPassword")
     public String resetPassword(HttpServletRequest request, Email em, HttpSession httpSession) {
+        MyLogger.info("RESET PASSWORD");
         String email = request.getParameter("email");
         System.out.println("THIS IS EMAIL : " + email);
         boolean checkMail = userService.checkEmail(email);
@@ -136,6 +143,7 @@ public class HomeController {
 
     @PostMapping("/updatePassword")
     public String updatePassword(HttpServletRequest request, HttpSession session) {
+        MyLogger.info("UPDATE PASSWORD");
         String newPassword = request.getParameter("newPassword");
         String token = request.getParameter("token");
         UserDetails user = userService.getResetPasswordToken(token);

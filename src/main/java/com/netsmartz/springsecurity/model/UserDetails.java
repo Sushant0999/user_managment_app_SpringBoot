@@ -83,7 +83,7 @@ public class UserDetails {
 	@Override
 	public String toString() {
 		return "UserDetails [id=" + id + ", fullname=" + fullname + ", email=" + email + ", address=" + address
-				+ ", qualification=" + qualification + ", password=" + password + "]";
+				+ ", qualification=" + qualification + "]";
 	}
 
 	public static boolean isNonEmptyAndNonBlank(String value) {

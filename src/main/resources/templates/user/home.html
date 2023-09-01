@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html th="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+<html th:lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
-	<section>
-		<div class="container">
-			<h1 align="center" style="padding-top: 20px;">HOME PAGE</h1>
-			<div class="container pt-5">
-				<h2>Name : [[${user.fullname}]]</h2>
-				<h2>Email : [[${user.email}]]</h2>
-				<h2>Qualification : [[${user.qualification}]]</h2>
-				<h2>Address : [[${user.address}]]</h2>
+<section>
+	<div class="container">
+		<div>
+		<h1 align="center" style="padding-top: 20px;">HOME PAGE</h1>
+			<div align="right" class="container pt-5">
+				<button class="btn btn-secondary" style="background-color: green;">
+					<a th:href="@{/user/pdf/{email}(email=${user.email})}">
+						<h3 style="color: white;">Download Pdf</h3>
+					</a>
+				</button>
 			</div>
+		</div>
 
-			<div class="container pt-5">
-				<button class="btn btn-secondary" style="background-color: green;">
-					<a href="/logout"><h3 style="color: white;">Logout</h3></a>
-				</button>
-			</div>
-			<div class="container pt-5">
-				<button class="btn btn-secondary" style="background-color: green;">
+		<div class="container pt-5">
+			<h2>Name : [[${user.fullname}]]</h2>
+			<h2>Email : [[${user.email}]]</h2>
+			<h2>Qualification : [[${user.qualification}]]</h2>
+			<h2>Address : [[${user.address}]]</h2>
+		</div>
+
+		<div class="container pt-5">
+			<button class="btn btn-secondary" style="background-color: green;">
+				<a href="/logout"><h3 style="color: white;">Logout</h3></a>
+			</button>
+		</div>
+		<div class="container pt-5">
+			<button class="btn btn-secondary" style="background-color: green;">
 				<a href="/user/getAll"><h3 style="color: white;">GetAll</h3></a>
-				</button>
-			</div>
-			<div class="container pt-5">
-				<button class="btn btn-secondary" style="background-color: green;">
-					<a href="/user/pdf"><h3 style="color: white;">Download Pdf</h3></a>
-				</button>
-			</div>
-	</section>
+			</button>
+		</div>
+	</div>
+</section>
 </body>
 </html>
